@@ -1,28 +1,73 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Free Tools Hub — Useful Tools in Your Browser</title>
-<meta name="description" content="Fast, private browser tools: calculators, text utilities, generators and study helpers. No signup.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Tools Hub — Calculators, Converters & Study Tools</title>
+<meta name="description" content="Free browser-based calculators, converters, text tools and study utilities. No signup, no uploads, and fast on mobile.">
+<meta name="keywords" content="free online tools, calculator, percentage calculator, grade calculator, word counter, JSON formatter, unit converter, study tools">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://yhs1223.github.io/free-tools-hub/">
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fb;color:#18202a}header{padding:56px 20px 34px;text-align:center;background:linear-gradient(135deg,#111827,#334155);color:#fff}h1{font-size:clamp(2rem,6vw,3.6rem);margin:0 0 12px}.tag{opacity:.85;max-width:650px;margin:auto;line-height:1.6}.wrap{max-width:1050px;margin:28px auto;padding:0 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:20px;box-shadow:0 5px 20px #00000008}.card h2{font-size:1.1rem;margin:0 0 8px}.card p{color:#667085;line-height:1.5}.input{width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:10px;font-size:16px;margin:6px 0}.btn{border:0;border-radius:10px;padding:11px 14px;background:#111827;color:white;cursor:pointer}.out{margin-top:10px;padding:10px;background:#f1f5f9;border-radius:10px;min-height:20px}.search{width:100%;padding:14px;border:1px solid #d0d5dd;border-radius:12px;margin-bottom:18px;font-size:16px}footer{text-align:center;padding:40px;color:#667085;font-size:.9rem}</style>
-</head><body>
-<header><h1>Free Tools Hub</h1><div class="tag">Useful little tools that work instantly in your browser. No signup, no uploads, no account.</div></header>
-<main class="wrap"><input id="search" class="search" placeholder="Search tools..." oninput="filterTools()">
-<div class="grid" id="tools">
-<section class="card" data-name="percentage calculator"><h2>Percentage Calculator</h2><p>Find a percentage of a number.</p><input class="input" id="pn" type="number" placeholder="Number"><input class="input" id="pp" type="number" placeholder="Percent"><button class="btn" onclick="calcPct()">Calculate</button><div class="out" id="po"></div></section>
-<section class="card" data-name="tip calculator"><h2>Tip Calculator</h2><p>Split a bill and calculate the tip.</p><input class="input" id="bill" type="number" placeholder="Bill"><input class="input" id="tip" type="number" value="15" placeholder="Tip %"><input class="input" id="people" type="number" value="1" placeholder="People"><button class="btn" onclick="calcTip()">Calculate</button><div class="out" id="to"></div></section>
-<section class="card" data-name="word counter"><h2>Word & Character Counter</h2><p>Count words and characters locally.</p><textarea class="input" id="txt" rows="4" oninput="countText()" placeholder="Type or paste text..."></textarea><div class="out" id="co">0 words · 0 characters</div></section>
-<section class="card" data-name="password generator"><h2>Password Generator</h2><p>Generate a random password locally.</p><button class="btn" onclick="genPass()">Generate</button><div class="out" id="pass"></div></section>
-<section class="card" data-name="bmi calculator"><h2>BMI Calculator</h2><p>Calculate BMI from height and weight.</p><input class="input" id="h" type="number" placeholder="Height (cm)"><input class="input" id="w" type="number" placeholder="Weight (kg)"><button class="btn" onclick="bmi()">Calculate</button><div class="out" id="bo"></div></section>
-<section class="card" data-name="age calculator"><h2>Age Calculator</h2><p>Find your age from your birth date.</p><input class="input" id="dob" type="date"><button class="btn" onclick="age()">Calculate</button><div class="out" id="ao"></div></section>
-</div></main><footer>Free Tools Hub · Built for speed and privacy · Results are calculated in your browser.</footer>
+:root{--bg:#f6f7fb;--card:#fff;--text:#172033;--muted:#687386;--line:#e3e7ef;--accent:#315efb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:#111827;color:#fff;padding:42px 18px;text-align:center}header h1{margin:0 0 8px;font-size:clamp(30px,6vw,48px)}header p{margin:0;color:#cbd5e1}
+main{max-width:1100px;margin:auto;padding:22px 16px 50px}.search{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:12px;font-size:16px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.tool{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 3px 12px #00000008}.tool h2{font-size:20px;margin:0 0 5px}.tool p{color:var(--muted);margin:0 0 14px;font-size:14px}
+label{display:block;font-size:13px;color:var(--muted);margin:8px 0 4px}input,textarea,select,button{font:inherit}input,textarea,select{width:100%;padding:10px 11px;border:1px solid #ccd3df;border-radius:9px;background:#fff}textarea{min-height:110px;resize:vertical}button{margin-top:10px;padding:10px 13px;border:0;border-radius:9px;background:var(--accent);color:#fff;font-weight:650;cursor:pointer}button.secondary{background:#e9edf5;color:#172033}.result{margin-top:12px;padding:11px;border-radius:9px;background:#f1f4f9;min-height:20px;white-space:pre-wrap;overflow-wrap:anywhere}.row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+footer{max-width:1100px;margin:auto;padding:0 16px 35px;color:var(--muted);font-size:13px;text-align:center}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header><h1>Free Tools Hub</h1><p>Fast browser tools for study, work, coding and everyday calculations.</p></header>
+<main>
+<input id="search" class="search" placeholder="Search tools..." aria-label="Search tools">
+<section class="grid" id="tools">
+<article class="tool"><h2>Percentage Calculator</h2><p>Find a percentage of a number.</p><div class="row"><input id="pctA" type="number" placeholder="%"><input id="pctB" type="number" placeholder="Number"></div><button onclick="calcPct()">Calculate</button><div id="pctR" class="result"></div></article>
+<article class="tool"><h2>Discount Calculator</h2><p>Calculate sale price and savings.</p><div class="row"><input id="discP" type="number" placeholder="Original price"><input id="disc" type="number" placeholder="Discount %"></div><button onclick="discount()">Calculate</button><div id="discR" class="result"></div></article>
+<article class="tool"><h2>Tip Calculator</h2><p>Split a bill and calculate tip.</p><div class="row"><input id="bill" type="number" placeholder="Bill"><input id="tip" type="number" placeholder="Tip %"></div><input id="people" type="number" value="1" min="1" placeholder="People"><button onclick="tipCalc()">Calculate</button><div id="tipR" class="result"></div></article>
+<article class="tool"><h2>Word & Character Counter</h2><p>Count words, characters and lines instantly.</p><textarea id="wc" oninput="countText()" placeholder="Type or paste text..."></textarea><div id="wcR" class="result">0 words · 0 characters · 0 lines</div></article>
+<article class="tool"><h2>Grade Calculator</h2><p>Calculate a weighted average from scores.</p><textarea id="grades" placeholder="Example: 90,20
+80,30
+95,50"></textarea><button onclick="gradeCalc()">Calculate</button><div id="gradeR" class="result">Use score,weight on each line.</div></article>
+<article class="tool"><h2>Age Calculator</h2><p>Calculate age from a birth date.</p><input id="birth" type="date"><button onclick="ageCalc()">Calculate</button><div id="ageR" class="result"></div></article>
+<article class="tool"><h2>Random Number Generator</h2><p>Generate a number in a range.</p><div class="row"><input id="min" type="number" value="1"><input id="max" type="number" value="100"></div><button onclick="randomNum()">Generate</button><div id="randR" class="result"></div></article>
+<article class="tool"><h2>Password Generator</h2><p>Create a random password locally in your browser.</p><div class="row"><input id="plen" type="number" value="16" min="4" max="128"><select id="ptype"><option value="all">Letters + numbers + symbols</option><option value="alnum">Letters + numbers</option><option value="letters">Letters only</option></select></div><button onclick="password()">Generate</button><div id="passR" class="result"></div></article>
+<article class="tool"><h2>Unit Converter</h2><p>Convert common length, weight and temperature units.</p><div class="row"><input id="unitV" type="number" placeholder="Value"><select id="unitT"><option value="kmmi">km → miles</option><option value="mikm">miles → km</option><option value="kg lb">kg → lb</option><option value="lb kg">lb → kg</option><option value="cm in">cm → inches</option><option value="in cm">inches → cm</option><option value="cf">°C → °F</option><option value="fc">°F → °C</option></select></div><button onclick="convert()">Convert</button><div id="unitR" class="result"></div></article>
+<article class="tool"><h2>JSON Formatter</h2><p>Pretty-print or validate JSON in your browser.</p><textarea id="json" placeholder='{"hello":"world"}'></textarea><button onclick="formatJson()">Format JSON</button><div id="jsonR" class="result"></div></article>
+<article class="tool"><h2>Base64 Encoder / Decoder</h2><p>Encode or decode plain text locally.</p><textarea id="b64" placeholder="Text..."></textarea><div class="row"><button onclick="enc64()">Encode</button><button class="secondary" onclick="dec64()">Decode</button></div><div id="b64R" class="result"></div></article>
+<article class="tool"><h2>Text Case Converter</h2><p>Convert text to upper, lower or title case.</p><textarea id="caseT" placeholder="Type text..."></textarea><div class="row"><button onclick="caseTo('upper')">UPPERCASE</button><button onclick="caseTo('lower')">lowercase</button></div><button onclick="caseTo('title')">Title Case</button><div id="caseR" class="result"></div></article>
+<article class="tool"><h2>Line Sorter</h2><p>Sort lines alphabetically and remove duplicates.</p><textarea id="lines" placeholder="One item per line..."></textarea><button onclick="sortLines()">Sort & Deduplicate</button><div id="linesR" class="result"></div></article>
+<article class="tool"><h2>Study Timer</h2><p>A simple browser-only countdown for focused study sessions.</p><div class="row"><input id="mins" type="number" value="25" min="1"><input id="secs" type="number" value="0" min="0" max="59"></div><button onclick="startTimer()">Start</button><button class="secondary" onclick="stopTimer()">Stop</button><div id="timerR" class="result">25:00</div></article>
+<article class="tool"><h2>Average Calculator</h2><p>Find the mean of a list of numbers.</p><textarea id="nums" placeholder="10, 20, 30"></textarea><button onclick="average()">Calculate</button><div id="avgR" class="result"></div></article>
+<article class="tool"><h2>Ratio Calculator</h2><p>Scale a ratio to find the missing value.</p><div class="row"><input id="r1" type="number" placeholder="A"><input id="r2" type="number" placeholder="B"></div><input id="r3" type="number" placeholder="New A"><button onclick="ratio()">Calculate B</button><div id="ratioR" class="result"></div></article>
+</section>
+</main>
+<footer>Free Tools Hub runs calculations in your browser. No account or file upload is required.</footer>
 <script>
-function calcPct(){let n=+pn.value,p=+pp.value;po.textContent=isFinite(n*p/100)?(n*p/100):'Enter numbers.'}
-function calcTip(){let b=+bill.value,t=+tip.value,p=+people.value;to.textContent=b&&p?'Total: '+(b*(1+t/100)).toFixed(2)+' · Per person: '+(b*(1+t/100)/p).toFixed(2):'Enter values.'}
-function countText(){let s=txt.value;co.textContent=(s.trim()?s.trim().split(/\s+/).length:0)+' words · '+s.length+' characters'}
-function genPass(){let c='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*';let s='';for(let i=0;i<16;i++)s+=c[Math.floor(Math.random()*c.length)];pass.textContent=s}
-function bmi(){let x=+h.value/100,y=+w.value;bo.textContent=x&&y?'BMI: '+(y/(x*x)).toFixed(1):'Enter values.'}
-function age(){let d=new Date(dob.value);if(!d.getTime()){ao.textContent='Choose a date.';return}let n=new Date(),a=n.getFullYear()-d.getFullYear();if(n<new Date(n.getFullYear(),d.getMonth(),d.getDate()))a--;ao.textContent='Age: '+a}
-function filterTools(){let q=search.value.toLowerCase();document.querySelectorAll('#tools .card').forEach(x=>x.style.display=x.dataset.name.includes(q)?'block':'none')}
-</script></body></html>
+const $=id=>document.getElementById(id);
+function nums(s){return s.split(/[,\s]+/).map(Number).filter(Number.isFinite)}
+function calcPct(){const a=+$('pctA').value,b=+$('pctB').value;$('pctR').textContent=Number.isFinite(a*b/100)?(a*b/100).toLocaleString():'Enter valid numbers.'}
+function discount(){const p=+$('discP').value,d=+$('disc').value;if(p<0||d<0)return $('discR').textContent='Enter valid numbers.';const save=p*d/100;$('discR').textContent='Save: '+save.toFixed(2)+' · Final price: '+(p-save).toFixed(2)}
+function tipCalc(){const b=+$('bill').value,t=+$('tip').value,n=Math.max(1,+$('people').value||1);const total=b*(1+t/100);$('tipR').textContent='Tip: '+(b*t/100).toFixed(2)+' · Total: '+total.toFixed(2)+' · Each: '+(total/n).toFixed(2)}
+function countText(){const s=$('wc').value;$('wcR').textContent=s.trim()?(s.trim().split(/\s+/).length+' words · '+s.length+' characters · '+s.split('\n').length+' lines'):'0 words · 0 characters · 0 lines'}
+function gradeCalc(){const rows=$('grades').value.trim().split('\n').map(x=>x.split(/[,\s]+/).map(Number)).filter(x=>x.length>=2&&x.every(Number.isFinite));const w=rows.reduce((a,x)=>a+x[1],0);const score=rows.reduce((a,x)=>a+x[0]*x[1],0);$('gradeR').textContent=rows.length&&w?'Weighted average: '+(score/w).toFixed(2):'Use score,weight on each line.'}
+function ageCalc(){if(!$('birth').value)return $('ageR').textContent='Choose a date.';const b=new Date($('birth').value+'T00:00:00'),n=new Date();let a=n.getFullYear()-b.getFullYear();if(new Date(n.getFullYear(),b.getMonth(),b.getDate())>n)a--; $('ageR').textContent='Age: '+a+' years'}
+function randomNum(){let a=Math.ceil(+$('min').value),b=Math.floor(+$('max').value);if(a>b)[a,b]=[b,a];$('randR').textContent=String(Math.floor(Math.random()*(b-a+1))+a)}
+function password(){const sets={all:'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*',alnum:'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',letters:'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'};const set=sets[$('ptype').value],n=Math.min(128,Math.max(4,+$('plen').value||16));let out='';for(let i=0;i<n;i++)out+=set[Math.floor(Math.random()*set.length)];$('passR').textContent=out}
+function convert(){const v=+$('unitV').value,t=$('unitT').value;let r;if(t==='kmmi')r=v*.621371;if(t==='mikm')r=v*1.609344;if(t==='kg lb')r=v*2.20462262;if(t==='lb kg')r=v*.45359237;if(t==='cm in')r=v*.393700787;if(t==='in cm')r=v*2.54;if(t==='cf')r=v*9/5+32;if(t==='fc')r=(v-32)*5/9;$('unitR').textContent=Number.isFinite(r)?r.toFixed(4):'Enter a valid value.'}
+function formatJson(){try{$('jsonR').textContent=JSON.stringify(JSON.parse($('json').value),null,2)}catch(e){$('jsonR').textContent='Invalid JSON.'}}
+function enc64(){try{$('b64R').textContent=btoa(unescape(encodeURIComponent($('b64').value)))}catch(e){$('b64R').textContent='Could not encode.'}}
+function dec64(){try{$('b64R').textContent=decodeURIComponent(escape(atob($('b64').value)))}catch(e){$('b64R').textContent='Invalid Base64.'}}
+function caseTo(t){const s=$('caseT').value;let r=t==='upper'?s.toUpperCase():t==='lower'?s.toLowerCase():s.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());$('caseR').textContent=r}
+function sortLines(){const a=$('lines').value.split('\n').map(x=>x.trim()).filter(Boolean);$('linesR').textContent=[...new Set(a)].sort((x,y)=>x.localeCompare(y)).join('\n')}
+let timer=null,left=1500;function renderTimer(){left=Math.max(0,left);$('timerR').textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0')}
+function startTimer(){clearInterval(timer);left=(Math.max(0,+$('mins').value||0)*60)+(Math.max(0,+$('secs').value||0));renderTimer();timer=setInterval(()=>{left--;renderTimer();if(left<=0){clearInterval(timer);document.title='Time is up!'}} ,1000)}
+function stopTimer(){clearInterval(timer)}
+function average(){const a=nums($('nums').value);$('avgR').textContent=a.length?'Average: '+(a.reduce((x,y)=>x+y,0)/a.length).toFixed(4):'Enter numbers.'}
+function ratio(){const a=+$('r1').value,b=+$('r2').value,c=+$('r3').value;$('ratioR').textContent=a&&Number.isFinite(c)?'B = '+(b*c/a).toFixed(4):'Enter valid numbers.'}
+$('search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('.tool').forEach(x=>x.classList.toggle('hidden',q&&!x.textContent.toLowerCase().includes(q)))})
+</script>
+</body>
+</html>
