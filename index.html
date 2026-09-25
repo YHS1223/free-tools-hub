@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Tools Hub — Useful Tools in Your Browser</title>
+<meta name="description" content="Fast, private browser tools: calculators, text utilities, generators and study helpers. No signup.">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fb;color:#18202a}header{padding:56px 20px 34px;text-align:center;background:linear-gradient(135deg,#111827,#334155);color:#fff}h1{font-size:clamp(2rem,6vw,3.6rem);margin:0 0 12px}.tag{opacity:.85;max-width:650px;margin:auto;line-height:1.6}.wrap{max-width:1050px;margin:28px auto;padding:0 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:20px;box-shadow:0 5px 20px #00000008}.card h2{font-size:1.1rem;margin:0 0 8px}.card p{color:#667085;line-height:1.5}.input{width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:10px;font-size:16px;margin:6px 0}.btn{border:0;border-radius:10px;padding:11px 14px;background:#111827;color:white;cursor:pointer}.out{margin-top:10px;padding:10px;background:#f1f5f9;border-radius:10px;min-height:20px}.search{width:100%;padding:14px;border:1px solid #d0d5dd;border-radius:12px;margin-bottom:18px;font-size:16px}footer{text-align:center;padding:40px;color:#667085;font-size:.9rem}</style>
+</head><body>
+<header><h1>Free Tools Hub</h1><div class="tag">Useful little tools that work instantly in your browser. No signup, no uploads, no account.</div></header>
+<main class="wrap"><input id="search" class="search" placeholder="Search tools..." oninput="filterTools()">
+<div class="grid" id="tools">
+<section class="card" data-name="percentage calculator"><h2>Percentage Calculator</h2><p>Find a percentage of a number.</p><input class="input" id="pn" type="number" placeholder="Number"><input class="input" id="pp" type="number" placeholder="Percent"><button class="btn" onclick="calcPct()">Calculate</button><div class="out" id="po"></div></section>
+<section class="card" data-name="tip calculator"><h2>Tip Calculator</h2><p>Split a bill and calculate the tip.</p><input class="input" id="bill" type="number" placeholder="Bill"><input class="input" id="tip" type="number" value="15" placeholder="Tip %"><input class="input" id="people" type="number" value="1" placeholder="People"><button class="btn" onclick="calcTip()">Calculate</button><div class="out" id="to"></div></section>
+<section class="card" data-name="word counter"><h2>Word & Character Counter</h2><p>Count words and characters locally.</p><textarea class="input" id="txt" rows="4" oninput="countText()" placeholder="Type or paste text..."></textarea><div class="out" id="co">0 words · 0 characters</div></section>
+<section class="card" data-name="password generator"><h2>Password Generator</h2><p>Generate a random password locally.</p><button class="btn" onclick="genPass()">Generate</button><div class="out" id="pass"></div></section>
+<section class="card" data-name="bmi calculator"><h2>BMI Calculator</h2><p>Calculate BMI from height and weight.</p><input class="input" id="h" type="number" placeholder="Height (cm)"><input class="input" id="w" type="number" placeholder="Weight (kg)"><button class="btn" onclick="bmi()">Calculate</button><div class="out" id="bo"></div></section>
+<section class="card" data-name="age calculator"><h2>Age Calculator</h2><p>Find your age from your birth date.</p><input class="input" id="dob" type="date"><button class="btn" onclick="age()">Calculate</button><div class="out" id="ao"></div></section>
+</div></main><footer>Free Tools Hub · Built for speed and privacy · Results are calculated in your browser.</footer>
+<script>
+function calcPct(){let n=+pn.value,p=+pp.value;po.textContent=isFinite(n*p/100)?(n*p/100):'Enter numbers.'}
+function calcTip(){let b=+bill.value,t=+tip.value,p=+people.value;to.textContent=b&&p?'Total: '+(b*(1+t/100)).toFixed(2)+' · Per person: '+(b*(1+t/100)/p).toFixed(2):'Enter values.'}
+function countText(){let s=txt.value;co.textContent=(s.trim()?s.trim().split(/\s+/).length:0)+' words · '+s.length+' characters'}
+function genPass(){let c='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*';let s='';for(let i=0;i<16;i++)s+=c[Math.floor(Math.random()*c.length)];pass.textContent=s}
+function bmi(){let x=+h.value/100,y=+w.value;bo.textContent=x&&y?'BMI: '+(y/(x*x)).toFixed(1):'Enter values.'}
+function age(){let d=new Date(dob.value);if(!d.getTime()){ao.textContent='Choose a date.';return}let n=new Date(),a=n.getFullYear()-d.getFullYear();if(n<new Date(n.getFullYear(),d.getMonth(),d.getDate()))a--;ao.textContent='Age: '+a}
+function filterTools(){let q=search.value.toLowerCase();document.querySelectorAll('#tools .card').forEach(x=>x.style.display=x.dataset.name.includes(q)?'block':'none')}
+</script></body></html>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yhs1223.github.io/free-tools-hub/sitemap.xml
